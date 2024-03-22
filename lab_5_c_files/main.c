@@ -232,7 +232,7 @@ int releases_deadlines(struct p_task *per_tasks, struct a_task *aper_tasks, int 
 
         //Calculate each task's current slack available based on S = (D - R) - C
         if(per_tasks[i].blocked == 0){
-            per_tasks[i].slack = per_tasks[i].deadline - cur_time - per_tasks[i].ex_time;
+            per_tasks[i].slack = per_tasks[i].deadline - cur_time - per_tasks[i].task_count;
         }
         else{
             per_tasks[i].slack = 0;
@@ -263,7 +263,7 @@ int releases_deadlines(struct p_task *per_tasks, struct a_task *aper_tasks, int 
 
         //Calculate each task's current slack available based on S = (D - R) - C
         if(aper_tasks[i].blocked == 0){
-            aper_tasks[i].slack = aper_tasks[i].deadline - cur_time - aper_tasks[i].ex_time;
+            aper_tasks[i].slack = aper_tasks[i].deadline - cur_time - aper_tasks[i].task_count;
         }
         else{
             aper_tasks[i].slack = 0;
@@ -828,7 +828,7 @@ void schedule_LST(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
             }
             //Check if the current task still needs to finish executing
             else if (per_tasks[cur_task].task_count > 0){
-                printf("Task %s, Current Time: %d, Slack: %d\n",per_tasks[cur_task].task_name, cur_time, per_tasks[cur_task].slack);
+                printf("Task %s, Current Time: %d, Task Count: %d, Slack: %d, cur_task: %d\n",per_tasks[cur_task].task_name, cur_time, aper_tasks[cur_task].task_count, per_tasks[cur_task].slack, cur_task);
                 //fprintf(fptr_write,"Task %s, Current Time: %d, Slack: %d\n",per_tasks[cur_task].task_name, cur_time, per_tasks[cur_task].slack);
                 per_tasks[cur_task].task_count--;
                 prev = cur_task;
@@ -850,7 +850,7 @@ void schedule_LST(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
             }
             //Check if the current task still needs to finish executing
             else if (aper_tasks[cur_task - periodic].task_count > 0){
-                printf("\tTask %s, Current Time: %d, Slack: %d\n",aper_tasks[cur_task - periodic].task_name, cur_time, aper_tasks[cur_task - periodic].slack);
+                printf("\tTask %s, Current Time: %d, Task Count: %d, Slack: %d, cur_task: %d, cur_task - periodic: %d\n",aper_tasks[cur_task - periodic].task_name, cur_time, aper_tasks[cur_task - periodic].task_count, aper_tasks[cur_task - periodic].slack, cur_task, cur_task-periodic);
                 //fprintf(fptr_write,"\tTask %s, Current Time: %d Slack: %d\n",aper_tasks[cur_task - periodic].task_name, cur_time, aper_tasks[cur_task - periodic].slack);
                 aper_tasks[cur_task - periodic].task_count--;
                 prev = cur_task - periodic;
@@ -909,7 +909,7 @@ int cur_task_running_LST(struct p_task *per_tasks, struct a_task *aper_tasks, in
     static int prev_task = 0;
 
     //Find first unblocked periodic task
-    while((per_tasks[p_slack].blocked == 1) && (p_slack < periodic)){
+    while((per_tasks[p_slack].blocked == 1) && (p_slack < periodic) && (per_tasks[p_slack].slack >= 0)){
         p_slack++;
     }
 
@@ -919,7 +919,7 @@ int cur_task_running_LST(struct p_task *per_tasks, struct a_task *aper_tasks, in
         if ((per_tasks[i].slack < per_tasks[p_slack].slack) && (per_tasks[i].blocked == 0)){
             p_slack = i;
         }
-        //If a task has less slack it becomes the highest priority task if it was previously executing or has a shortest execution time
+        //The least slack time task becomes the highest priority task if it was previously executing or it has the shortest execution time
         else if (per_tasks[i].slack == per_tasks[p_slack].slack && per_tasks[i].blocked == 0){
             //Keep executing the same task if it still has the least slack time as last clock cycle
             if (prev_task == i){
@@ -935,7 +935,7 @@ int cur_task_running_LST(struct p_task *per_tasks, struct a_task *aper_tasks, in
     }
 
     //Find first unblocked aperiodic task
-    while((aper_tasks[a_slack].blocked == 1) && (a_slack < aperiodic)){
+    while((aper_tasks[a_slack].blocked == 1) && (a_slack < aperiodic) && (aper_tasks[a_slack].slack >= 0)){
         a_slack++;
     }
     
@@ -963,7 +963,7 @@ int cur_task_running_LST(struct p_task *per_tasks, struct a_task *aper_tasks, in
     //If at least one periodic task and one aperiodic is unblocked
     //Test to see which lowest one of the two types should be executing
     if (p_slack < periodic && a_slack < aperiodic){
-        if (per_tasks[p_slack].slack < aper_tasks[a_slack].slack){
+        if (per_tasks[p_slack].slack < aper_tasks[a_slack].slack && (per_tasks[p_slack].slack >= 0)){
             cur_task = p_slack;
         }
         else if (per_tasks[p_slack].slack == aper_tasks[a_slack].slack){
@@ -977,23 +977,26 @@ int cur_task_running_LST(struct p_task *per_tasks, struct a_task *aper_tasks, in
                 cur_task = p_slack;
             }
         }
-        else {
+        else if (aper_tasks[a_slack].slack >= 0){
             cur_task = a_slack+periodic;
+        }
+        //If no tasks are unblocked then IDLE or have slack greater than 0
+        else {
+            cur_task = periodic + aperiodic;
         }
     }
     //If only periodic tasks are unblocked run the periodic task with the least slack time
-    else if (p_slack < periodic && a_slack >= aperiodic){
+    else if (p_slack < periodic && a_slack >= aperiodic && (per_tasks[p_slack].slack >= 0)){
         cur_task = p_slack;
     }
     //If only aperiodic tasks are unblocked run the aperiodic task with the least slack time
-    else if (p_slack >= periodic && a_slack < aperiodic){
+    else if (p_slack >= periodic && a_slack < aperiodic && (aper_tasks[a_slack].slack >= 0)){
         cur_task = a_slack+periodic;
     }
-    //If no tasks are unblocked then IDLE
+    //If no tasks are unblocked then IDLE or have slack greater than 0
     else{
         cur_task = periodic + aperiodic;
     }
     prev_task = cur_task;
-
     return cur_task;
 }
