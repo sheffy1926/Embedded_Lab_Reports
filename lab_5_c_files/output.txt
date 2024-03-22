@@ -323,12 +323,12 @@ Task V preempted by Task C at time 250
 Task B released at time 260
 Task C finished at time 269
 Task B finished at time 284
-	Task V finished at 289 time
 Task A released at time 300
 Task D released at time 300
 Task W preempted by Task A at time 300
 Task A finished at time 309
 Task D finished at time 334
+	Task V finished at 339 time
 	Task W finished at 349 time
 Task F released at time 350
 Task F finished at time 374
@@ -342,9 +342,10 @@ Task A finished at time 409
 Task B finished at time 419
 	Task X finished at 429 time
 Task D released at time 450
-	Task Y finished at 454 time
-Task D finished at time 479
-Task E finished at time 499
+Task Y preempted by Task D at time 450
+Task D finished at time 474
+Task E finished at time 494
+	Task Y finished at 499 time
 Task A released at time 500
 Task C released at time 500
 Task A finished at time 509
@@ -369,9 +370,10 @@ Task D released at time 600
 Task E released at time 600
 Task A finished at time 609
 Task C released at time 625
-Task D finished at time 634
+Task D preempted by Task C at time 625
+Task C finished at time 644
 Task B released at time 650
-Task C finished at time 654
+Task D finished at time 654
 Task B finished at time 669
 Task E finished at time 689
 Idle at Time 690
@@ -413,14 +415,14 @@ LST Scheduler Summary:
 Task A misses: 0, preemptions: 0
 Task B misses: 0, preemptions: 1
 Task C misses: 0, preemptions: 0
-Task D misses: 0, preemptions: 0
+Task D misses: 0, preemptions: 1
 Task E misses: 0, preemptions: 0
 Task F misses: 0, preemptions: 1
 Task A misses: 0, preemptions: 0
 Task B misses: 0, preemptions: 1
 Task C misses: 0, preemptions: 0
-Task D misses: 0, preemptions: 0
+Task D misses: 0, preemptions: 1
 Task E misses: 0, preemptions: 0
 LST Total Misses: 0
-LST Total Preemptions: 4
-Aperiodic Average Response Time: 329
+LST Total Preemptions: 6
+Aperiodic Average Response Time: 348
