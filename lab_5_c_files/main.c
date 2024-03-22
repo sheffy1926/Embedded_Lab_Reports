@@ -836,7 +836,7 @@ void schedule_LST(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
             }
             //Check if the current task still needs to finish executing
             else if (per_tasks[cur_task].task_count > 0){
-                printf("Task %s, Current Time: %d, Task Count: %d, Slack: %d, p_cur_task: %d\n",per_tasks[cur_task].task_name, cur_time, per_tasks[cur_task].task_count, per_tasks[cur_task].slack, cur_task);
+                printf("Task %s, Current Time: %d, Task Count: %d, Slack: %d\n",per_tasks[cur_task].task_name, cur_time, per_tasks[cur_task].task_count, per_tasks[cur_task].slack);
                 //fprintf(fptr_write,"Task %s, Current Time: %d, Slack: %d\n",per_tasks[cur_task].task_name, cur_time, per_tasks[cur_task].slack);
                 per_tasks[cur_task].task_count--;
                 prev = cur_task;
@@ -872,7 +872,7 @@ void schedule_LST(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
             }
             //Check if the current task still needs to finish executing
             else if (aper_tasks[cur_task - periodic].task_count > 0){
-                printf("\tTask %s, Current Time: %d, Task Count: %d, Slack: %d, a_cur_task: %d\n",aper_tasks[cur_task - periodic].task_name, cur_time, aper_tasks[cur_task - periodic].task_count, aper_tasks[cur_task - periodic].slack, cur_task-periodic);
+                printf("\tTask %s, Current Time: %d, Task Count: %d, Slack: %d\n",aper_tasks[cur_task - periodic].task_name, cur_time, aper_tasks[cur_task - periodic].task_count, aper_tasks[cur_task - periodic].slack);
                 //fprintf(fptr_write,"\tTask %s, Current Time: %d Slack: %d\n",aper_tasks[cur_task - periodic].task_name, cur_time, aper_tasks[cur_task - periodic].slack);
                 aper_tasks[cur_task - periodic].task_count--;
                 prev = cur_task - periodic;
