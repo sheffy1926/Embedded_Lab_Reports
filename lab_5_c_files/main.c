@@ -44,7 +44,6 @@ int cur_task_running_EDF(struct p_task *per_tasks, struct a_task *aper_tasks, in
 void schedule_LST(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_time, int periodic, int aperiodic, FILE *fptr_write);
 int cur_task_running_LST(struct p_task *per_tasks, struct a_task *aper_tasks, int periodic, int aperiodic, int cur_time);
 
-
 int main(int argc, char **argv){
     char line[30] = {0};
     char temp[30] = {0};
@@ -85,7 +84,7 @@ int main(int argc, char **argv){
     for(int i = 0; i < 30; i++){
         temp[i] = 0;
     }
-    printf("Sim_time: %d\n",sim_time);
+    //printf("Sim_time: %d\n",sim_time);
 
     //Read in the periodic tasks: name, ex_time, period
     per_tasks = malloc(sizeof(struct p_task) * (periodic));
@@ -165,7 +164,7 @@ int main(int argc, char **argv){
     }
 
     //Print Periodic Tasks
-    printf("Periodic: %d\n",periodic);
+    /*printf("Periodic: %d\n",periodic);
     for(k = 0; k < periodic; k++){
         printf("Task Name: %s,\t",per_tasks[k].task_name);
         printf("Ex_Time: %d,\t",per_tasks[k].ex_time);
@@ -178,7 +177,7 @@ int main(int argc, char **argv){
         printf("Task Name: %s,\t",aper_tasks[k].task_name);
         printf("Ex_Time: %d,\t",aper_tasks[k].ex_time);
         printf("Release_Time: %d,\n",aper_tasks[k].release_time);
-    }
+    }*/
 
     //Schedule Tasks using RMA Algorithm 
     schedule_RMA(per_tasks, aper_tasks, sim_time, periodic, aperiodic, fptr_write);
@@ -387,6 +386,7 @@ void schedule_RMA(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
     int a_task_processed = 0;
     int response_time = 0;
     int a_tasks_finished = 0;
+    int idle_time = 0;
 
     //Set fixed priorities for periodic and aperiodic tasks under RMA
     find_priority_RMA(per_tasks,aper_tasks, periodic, aperiodic);
@@ -435,7 +435,7 @@ void schedule_RMA(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
             //Check if the current task still needs to finish executing
             else if (per_tasks[cur_task].task_count > 0){
                 //printf("Task %s Task Count: %d,",per_tasks[cur_task].task_name,per_tasks[cur_task].task_count);
-                printf("Task %s, Current Time: %d\n",per_tasks[cur_task].task_name, cur_time);
+                //printf("Task %s, Current Time: %d\n",per_tasks[cur_task].task_name, cur_time);
                 //fprintf(fptr_write,"Task %s, Current Time: %d\n",per_tasks[cur_task].task_name, cur_time);
                 per_tasks[cur_task].task_count--;
                 prev = cur_task;
@@ -458,7 +458,7 @@ void schedule_RMA(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
             //Check if the current task still needs to finish executing
             else if (aper_tasks[cur_task - periodic].task_count > 0){
                 //printf("Task %s Task Count: %d\n",aper_tasks[cur_task].task_name,aper_tasks[cur_task].task_count);
-                printf("\tTask %s, Current Time: %d\n",aper_tasks[cur_task - periodic].task_name, cur_time);
+                //printf("\tTask %s, Current Time: %d\n",aper_tasks[cur_task - periodic].task_name, cur_time);
                 //fprintf(fptr_write,"\tTask %s, Current Time: %d\n",aper_tasks[cur_task - periodic].task_name, cur_time);
                 aper_tasks[cur_task - periodic].task_count--;
                 prev = cur_task - periodic;
@@ -471,6 +471,7 @@ void schedule_RMA(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
             printf("Idle at Time %d\n",cur_time);
             fprintf(fptr_write,"Idle at Time %d\n",cur_time);
             prev = -1;
+            idle_time++;
         }
     }
 
@@ -509,6 +510,7 @@ void schedule_RMA(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
         printf("No Aperiodic Tasks Finished\n");
         fprintf(fptr_write,"No Aperiodic Tasks Finished\n");
     }
+    printf("Idle Time Spent: %d\n",idle_time);
 }
 
 //Finds what task should currently be running that is highest_priority and unblocked, Works for all 3 scheduling algorithms 
@@ -566,9 +568,10 @@ void schedule_EDF(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
     int a_task_processed = 0;
     int response_time = 0;
     int a_tasks_finished = 0;
+    int idle_time = 0;
 
-    printf("\nEDF Algorithm Task Schedule: *********************************\n\n");
-    fprintf(fptr_write,"\nEDF Algorithm Task Schedule: ********************************\n\n");
+    printf("\nEDF Algorithm Task Schedule: ***************************************\n\n");
+    fprintf(fptr_write,"\nEDF Algorithm Task Schedule: ****************************************\n\n");
 
     //Initialize periodic tasks
     for (int i = 0; i < periodic; i++){
@@ -612,7 +615,7 @@ void schedule_EDF(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
             }
             //Check if the current task still needs to finish executing
             else if (per_tasks[cur_task].task_count > 0){
-                printf("Task %s, Current Time: %d, Deadline: %d\n",per_tasks[cur_task].task_name, cur_time, per_tasks[cur_task].deadline);
+                //printf("Task %s, Current Time: %d, Deadline: %d\n",per_tasks[cur_task].task_name, cur_time, per_tasks[cur_task].deadline);
                 //fprintf(fptr_write,"Task %s, Current Time: %d, Deadline: %d\n",per_tasks[cur_task].task_name, cur_time, per_tasks[cur_task].deadline);
                 per_tasks[cur_task].task_count--;
                 prev = cur_task;
@@ -634,7 +637,7 @@ void schedule_EDF(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
             }
             //Check if the current task still needs to finish executing
             else if (aper_tasks[cur_task - periodic].task_count > 0){
-                printf("\tTask %s, Current Time: %d, Deadline: %d\n",aper_tasks[cur_task - periodic].task_name, cur_time, aper_tasks[cur_task - periodic].deadline);
+                //printf("\tTask %s, Current Time: %d, Deadline: %d\n",aper_tasks[cur_task - periodic].task_name, cur_time, aper_tasks[cur_task - periodic].deadline);
                 //fprintf(fptr_write,"\tTask %s, Current Time: %d Deadline: %d\n",aper_tasks[cur_task - periodic].task_name, cur_time, aper_tasks[cur_task - periodic].deadline);
                 aper_tasks[cur_task - periodic].task_count--;
                 prev = cur_task - periodic;
@@ -647,6 +650,7 @@ void schedule_EDF(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
             printf("Idle at Time %d\n",cur_time);
             fprintf(fptr_write,"Idle at Time %d\n",cur_time);
             prev = -1;
+            idle_time++;
         }
     }
 
@@ -674,7 +678,7 @@ void schedule_EDF(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
     printf("EDF Total Preemptions: %d\n", total_preemptions);
     fprintf(fptr_write,"EDF Total Preemptions: %d\n",total_preemptions);
 
-    printf("Aperiodic Tasks Finished: %d\n", a_tasks_finished);
+    //printf("Aperiodic Tasks Finished: %d\n", a_tasks_finished);
     //Print Average Response Time for Aperiodic Tasks that finished 
     if (a_tasks_finished != 0){
         printf("Aperiodic Average Response Time: %d\n", response_time / a_tasks_finished);
@@ -684,6 +688,7 @@ void schedule_EDF(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
         printf("No Aperiodic Tasks Finished\n");
         fprintf(fptr_write,"No Aperiodic Tasks Finished\n");
     }
+    printf("Idle Time Spent: %d\n",idle_time);
 }
 
 //Finds and updates the priority of the EDF scheduler each clock cycle
@@ -794,9 +799,10 @@ void schedule_LST(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
     int a_task_processed = 0;
     int response_time = 0;
     int a_tasks_finished = 0;
+    int idle_time = 0;
 
-    printf("\nLST Algorithm Task Schedule: *********************************\n\n");
-    fprintf(fptr_write,"\nLST Algorithm Task Schedule: ********************************\n\n");
+    printf("\nLST Algorithm Task Schedule: **************************************\n\n");
+    fprintf(fptr_write,"\nLST Algorithm Task Schedule: **************************************\n\n");
 
     //Initialize periodic tasks
     for (int i = 0; i < periodic; i++){
@@ -854,7 +860,7 @@ void schedule_LST(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
             }
             //Check if the current task still needs to finish executing
             else if (per_tasks[cur_task].task_count > 0){
-                printf("Task %s, Current Time: %d, Task Count: %d, Slack: %d\n",per_tasks[cur_task].task_name, cur_time, per_tasks[cur_task].task_count, per_tasks[cur_task].slack);
+                //printf("Task %s, Current Time: %d, Task Count: %d, Slack: %d\n",per_tasks[cur_task].task_name, cur_time, per_tasks[cur_task].task_count, per_tasks[cur_task].slack);
                 //fprintf(fptr_write,"Task %s, Current Time: %d, Slack: %d\n",per_tasks[cur_task].task_name, cur_time, per_tasks[cur_task].slack);
                 per_tasks[cur_task].task_count--;
                 prev = cur_task;
@@ -890,7 +896,7 @@ void schedule_LST(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
             }
             //Check if the current task still needs to finish executing
             else if (aper_tasks[cur_task - periodic].task_count > 0){
-                printf("\tTask %s, Current Time: %d, Task Count: %d, Slack: %d\n",aper_tasks[cur_task - periodic].task_name, cur_time, aper_tasks[cur_task - periodic].task_count, aper_tasks[cur_task - periodic].slack);
+                //printf("\tTask %s, Current Time: %d, Task Count: %d, Slack: %d\n",aper_tasks[cur_task - periodic].task_name, cur_time, aper_tasks[cur_task - periodic].task_count, aper_tasks[cur_task - periodic].slack);
                 //fprintf(fptr_write,"\tTask %s, Current Time: %d Slack: %d\n",aper_tasks[cur_task - periodic].task_name, cur_time, aper_tasks[cur_task - periodic].slack);
                 aper_tasks[cur_task - periodic].task_count--;
                 prev = cur_task - periodic;
@@ -902,6 +908,7 @@ void schedule_LST(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
         if ((p_task_processed == 0) && (a_task_processed == 0)){
             printf("Idle at Time %d\n",cur_time);
             fprintf(fptr_write,"Idle at Time %d\n",cur_time);
+            idle_time++;
         }
     }
 
@@ -929,7 +936,7 @@ void schedule_LST(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
     printf("LST Total Preemptions: %d\n", total_preemptions);
     fprintf(fptr_write,"LST Total Preemptions: %d\n",total_preemptions);
 
-    printf("Aperiodic Tasks Finished: %d\n", a_tasks_finished);
+    //printf("Aperiodic Tasks Finished: %d\n", a_tasks_finished);
     //Print Average Response Time for Aperiodic Tasks that finished 
     if (a_tasks_finished != 0){
         printf("Aperiodic Average Response Time: %d\n", response_time / a_tasks_finished);
@@ -939,6 +946,7 @@ void schedule_LST(struct p_task *per_tasks, struct a_task *aper_tasks, int sim_t
         printf("No Aperiodic Tasks Finished\n");
         fprintf(fptr_write,"No Aperiodic Tasks Finished\n");
     }
+    printf("Idle Time Spent: %d\n",idle_time);
 }
 
 //Finds and updates the priority of the LST scheduler each clock cycle

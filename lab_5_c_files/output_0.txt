@@ -1,0 +1,356 @@
+RMA Algorithm Task Schedule: *****************************************
+
+Task A released at time 0
+Task B released at time 0
+Task C released at time 0
+Task D released at time 0
+Task E released at time 0
+Task A finished at time 9
+Task B finished at time 24
+Task C finished at time 44
+	Task V released at time 55
+Task D finished at time 74
+Task E finished at time 94
+	Task V finished at 99 time
+Task A released at time 100
+Task B released at time 100
+Task C released at time 100
+Task D released at time 100
+Task A finished at time 109
+Task B finished at time 124
+Task C finished at time 144
+Task D finished at time 174
+	Task W released at time 175
+	Task W finished at 189 time
+Idle at Time 190
+Idle at Time 191
+Idle at Time 192
+Idle at Time 193
+Idle at Time 194
+Idle at Time 195
+Idle at Time 196
+Idle at Time 197
+Idle at Time 198
+Idle at Time 199
+Task A released at time 200
+Task B released at time 200
+Task C released at time 200
+Task D released at time 200
+Task E released at time 200
+Task A finished at time 209
+Task B finished at time 224
+	Task X released at time 230
+Task C finished at time 244
+	Task Y released at time 265
+Task D finished at time 274
+	Task Z released at time 280
+Task E finished at time 294
+Task A released at time 300
+Task B released at time 300
+Task C released at time 300
+Task D released at time 300
+Task X preempted by Task A at time 300
+Task A finished at time 309
+Task B finished at time 324
+Task C finished at time 344
+Task D finished at time 374
+	Task X finished at 379 time
+	Task Y finished at 389 time
+Task A released at time 400
+Task B released at time 400
+Task C released at time 400
+Task D released at time 400
+Task E released at time 400
+Task Z preempted by Task A at time 400
+Task A finished at time 409
+Task B finished at time 424
+Task C finished at time 444
+Task D finished at time 474
+Task E finished at time 494
+	Task Z finished at 499 time
+Task A released at time 500
+Task B released at time 500
+Task C released at time 500
+Task D released at time 500
+Task A finished at time 509
+Task B finished at time 524
+Task C finished at time 544
+Task D finished at time 574
+Idle at Time 575
+Idle at Time 576
+Idle at Time 577
+Idle at Time 578
+Idle at Time 579
+Idle at Time 580
+Idle at Time 581
+Idle at Time 582
+Idle at Time 583
+Idle at Time 584
+Idle at Time 585
+Idle at Time 586
+Idle at Time 587
+Idle at Time 588
+Idle at Time 589
+Idle at Time 590
+Idle at Time 591
+Idle at Time 592
+Idle at Time 593
+Idle at Time 594
+Idle at Time 595
+Idle at Time 596
+Idle at Time 597
+Idle at Time 598
+Idle at Time 599
+
+RMA Scheduler Summary:
+Task A misses: 0, preemptions: 0
+Task B misses: 0, preemptions: 0
+Task C misses: 0, preemptions: 0
+Task D misses: 0, preemptions: 0
+Task E misses: 0, preemptions: 0
+Task A misses: 0, preemptions: 0
+Task B misses: 0, preemptions: 0
+Task C misses: 0, preemptions: 0
+Task D misses: 0, preemptions: 0
+Task E misses: 0, preemptions: 0
+RMA Total Misses: 0
+RMA Total Preemptions: 2
+Aperiodic Average Response Time: 110
+
+EDF Algorithm Task Schedule: ********************************
+
+Task A released at time 0
+Task B released at time 0
+Task C released at time 0
+Task D released at time 0
+Task E released at time 0
+Task A finished at time 9
+Task B finished at time 24
+Task C finished at time 44
+	Task V released at time 55
+Task D finished at time 74
+Task E finished at time 94
+	Task V finished at 99 time
+Task A released at time 100
+Task B released at time 100
+Task C released at time 100
+Task D released at time 100
+Task A finished at time 109
+Task B finished at time 124
+Task C finished at time 144
+Task D finished at time 174
+	Task W released at time 175
+	Task W finished at 189 time
+Idle at Time 190
+Idle at Time 191
+Idle at Time 192
+Idle at Time 193
+Idle at Time 194
+Idle at Time 195
+Idle at Time 196
+Idle at Time 197
+Idle at Time 198
+Idle at Time 199
+Task A released at time 200
+Task B released at time 200
+Task C released at time 200
+Task D released at time 200
+Task E released at time 200
+Task A finished at time 209
+Task B finished at time 224
+	Task X released at time 230
+Task C finished at time 244
+	Task Y released at time 265
+Task D finished at time 274
+	Task Z released at time 280
+Task E finished at time 294
+Task A released at time 300
+Task B released at time 300
+Task C released at time 300
+Task D released at time 300
+Task X preempted by Task A at time 300
+Task A finished at time 309
+Task B finished at time 324
+Task C finished at time 344
+Task D finished at time 374
+	Task X finished at 379 time
+	Task Y finished at 389 time
+Task A released at time 400
+Task B released at time 400
+Task C released at time 400
+Task D released at time 400
+Task E released at time 400
+Task Z preempted by Task A at time 400
+Task A finished at time 409
+Task B finished at time 424
+Task C finished at time 444
+Task D finished at time 474
+Task E finished at time 494
+	Task Z finished at 499 time
+Task A released at time 500
+Task B released at time 500
+Task C released at time 500
+Task D released at time 500
+Task A finished at time 509
+Task B finished at time 524
+Task C finished at time 544
+Task D finished at time 574
+Idle at Time 575
+Idle at Time 576
+Idle at Time 577
+Idle at Time 578
+Idle at Time 579
+Idle at Time 580
+Idle at Time 581
+Idle at Time 582
+Idle at Time 583
+Idle at Time 584
+Idle at Time 585
+Idle at Time 586
+Idle at Time 587
+Idle at Time 588
+Idle at Time 589
+Idle at Time 590
+Idle at Time 591
+Idle at Time 592
+Idle at Time 593
+Idle at Time 594
+Idle at Time 595
+Idle at Time 596
+Idle at Time 597
+Idle at Time 598
+Idle at Time 599
+
+EDF Scheduler Summary:
+Task A misses: 0, preemptions: 0
+Task B misses: 0, preemptions: 0
+Task C misses: 0, preemptions: 0
+Task D misses: 0, preemptions: 0
+Task E misses: 0, preemptions: 0
+Task A misses: 0, preemptions: 0
+Task B misses: 0, preemptions: 0
+Task C misses: 0, preemptions: 0
+Task D misses: 0, preemptions: 0
+Task E misses: 0, preemptions: 0
+EDF Total Misses: 0
+EDF Total Preemptions: 2
+Aperiodic Average Response Time: 110
+
+LST Algorithm Task Schedule: ********************************
+
+Task A released at time 0
+Task B released at time 0
+Task C released at time 0
+Task D released at time 0
+Task E released at time 0
+Task D finished at time 29
+Task C finished at time 49
+	Task V released at time 55
+Task B finished at time 64
+Task A finished at time 74
+Task E finished at time 94
+	Task V finished at 99 time
+Task A released at time 100
+Task B released at time 100
+Task C released at time 100
+Task D released at time 100
+Task D finished at time 129
+Task C finished at time 149
+Task B finished at time 164
+Task A finished at time 174
+	Task W released at time 175
+	Task W finished at 189 time
+Idle at Time 190
+Idle at Time 191
+Idle at Time 192
+Idle at Time 193
+Idle at Time 194
+Idle at Time 195
+Idle at Time 196
+Idle at Time 197
+Idle at Time 198
+Idle at Time 199
+Task A released at time 200
+Task B released at time 200
+Task C released at time 200
+Task D released at time 200
+Task E released at time 200
+Task D finished at time 229
+	Task X released at time 230
+Task C finished at time 249
+Task B finished at time 264
+	Task Y released at time 265
+Task A finished at time 274
+	Task Z released at time 280
+Task E finished at time 294
+Task A released at time 300
+Task B released at time 300
+Task C released at time 300
+Task D released at time 300
+Task X preempted by Task D at time 300
+Task D finished at time 329
+Task C finished at time 349
+Task B finished at time 364
+Task A finished at time 374
+	Task X finished at 379 time
+	Task Y finished at 389 time
+Task A released at time 400
+Task B released at time 400
+Task C released at time 400
+Task D released at time 400
+Task E released at time 400
+Task Z preempted by Task D at time 400
+Task D finished at time 429
+Task C finished at time 449
+Task B finished at time 464
+Task A finished at time 474
+Task E finished at time 494
+	Task Z finished at 499 time
+Task A released at time 500
+Task B released at time 500
+Task C released at time 500
+Task D released at time 500
+Task D finished at time 529
+Task C finished at time 549
+Task B finished at time 564
+Task A finished at time 574
+Idle at Time 575
+Idle at Time 576
+Idle at Time 577
+Idle at Time 578
+Idle at Time 579
+Idle at Time 580
+Idle at Time 581
+Idle at Time 582
+Idle at Time 583
+Idle at Time 584
+Idle at Time 585
+Idle at Time 586
+Idle at Time 587
+Idle at Time 588
+Idle at Time 589
+Idle at Time 590
+Idle at Time 591
+Idle at Time 592
+Idle at Time 593
+Idle at Time 594
+Idle at Time 595
+Idle at Time 596
+Idle at Time 597
+Idle at Time 598
+Idle at Time 599
+
+LST Scheduler Summary:
+Task A misses: 0, preemptions: 0
+Task B misses: 0, preemptions: 0
+Task C misses: 0, preemptions: 0
+Task D misses: 0, preemptions: 0
+Task E misses: 0, preemptions: 0
+Task A misses: 0, preemptions: 0
+Task B misses: 0, preemptions: 0
+Task C misses: 0, preemptions: 0
+Task D misses: 0, preemptions: 0
+Task E misses: 0, preemptions: 0
+LST Total Misses: 0
+LST Total Preemptions: 2
+Aperiodic Average Response Time: 110
