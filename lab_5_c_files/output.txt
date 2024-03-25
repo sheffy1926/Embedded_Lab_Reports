@@ -350,8 +350,10 @@ Task A released at time 500
 Task C released at time 500
 Task A finished at time 509
 Task B released at time 520
+Task Z preempted by Task C at time 520
 Task F released at time 525
-	Task Z finished at 529 time
+	Task C preempted by Task E at time 525
+	Task Z finished at 534 time
 Task C finished at time 549
 Task B finished at time 564
 Task F finished at time 589
@@ -424,5 +426,5 @@ Task C misses: 0, preemptions: 0
 Task D misses: 0, preemptions: 1
 Task E misses: 0, preemptions: 0
 LST Total Misses: 0
-LST Total Preemptions: 6
-Aperiodic Average Response Time: 348
+LST Total Preemptions: 8
+Aperiodic Average Response Time: 349

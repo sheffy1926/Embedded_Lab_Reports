@@ -226,9 +226,18 @@ int releases_deadlines(struct p_task *per_tasks, struct a_task *aper_tasks, int 
                 per_tasks[i].deadline = (((cur_time / per_tasks[i].period) + 1) * per_tasks[i].period);
             }
 
-            //Calculate each task's current slack available based on S = (D - R) - C
-            if(per_tasks[i].blocked == 0){
-                per_tasks[i].slack = per_tasks[i].deadline - cur_time - per_tasks[i].task_count;
+            //Recalculate the slack for all tasks when a task finishes or releases
+            for (int i = 0; i < periodic; i++){
+                //Calculate each task's current slack available based on S = (D - R) - C
+                if(per_tasks[i].blocked == 0){
+                    per_tasks[i].slack = per_tasks[i].deadline - cur_time - per_tasks[i].task_count;
+                }
+            }
+            for (int i = 0; i < aperiodic; i++){
+                //Calculate each task's current slack available based on S = (D - R) - C
+                if(aper_tasks[i].blocked == 0){
+                    aper_tasks[i].slack = aper_tasks[i].deadline - cur_time - aper_tasks[i].task_count;
+                }
             }
 
             printf("Task %s released at time %d\n",per_tasks[i].task_name,cur_time);
@@ -254,9 +263,18 @@ int releases_deadlines(struct p_task *per_tasks, struct a_task *aper_tasks, int 
             //Calculate deadline for task based on current time and period of task or set it as the end of the sim_time 
             aper_tasks[i].deadline = aper_tasks[i].release_time + 500;
 
-            //Calculate each task's current slack available based on S = (D - R) - C
-            if(aper_tasks[i].blocked == 0){
-                aper_tasks[i].slack = aper_tasks[i].deadline - cur_time - aper_tasks[i].task_count;
+            //Recalculate the slack for all tasks when a task finishes or releases
+            for (int i = 0; i < periodic; i++){
+                //Calculate each task's current slack available based on S = (D - R) - C
+                if(per_tasks[i].blocked == 0){
+                    per_tasks[i].slack = per_tasks[i].deadline - cur_time - per_tasks[i].task_count;
+                }
+            }
+            for (int i = 0; i < aperiodic; i++){
+                //Calculate each task's current slack available based on S = (D - R) - C
+                if(aper_tasks[i].blocked == 0){
+                    aper_tasks[i].slack = aper_tasks[i].deadline - cur_time - aper_tasks[i].task_count;
+                }
             }
 
             printf("\tTask %s released at time %d\n",aper_tasks[i].task_name,cur_time);
